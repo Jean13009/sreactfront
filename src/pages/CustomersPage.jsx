@@ -6,11 +6,14 @@ const CustomersPage = (props) => {
     const [customers, setCustomers] = useState([]);
 
     useEffect(() => {
-        axios.get("https://syreact.herokuapp.com/api/customers", {headers: {
-            'Content-Type': 'application/ld+json; charset=utf-8'
-            }
-        }
-        )
+        axios.get("https://syreact.herokuapp.com/api/customers", {
+            mode: 'no-cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+            },
+       }
+       )
         .then(response => response.data["hydra:member"])
         .then(data => setCustomers(data));
     }, [])
