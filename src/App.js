@@ -14,7 +14,7 @@ const App = () => {
     <main className="container pt-5">
     <Switch>
     <Route path="/customers" component={CustomersPage} />
-    <Route path="/" component={HomePage} />
+    <Route path="/" component={CustomersPage} />
     </Switch>
     </main>
     </HashRouter>
