@@ -35,7 +35,7 @@ const CustomersPage = (props) => {
             </thead>
             <tbody>
                 {customers.map(customer =>
-                                    <tr ket={customer.id}>
+                                    <tr key={customer.id}>
                                     <td>{customer.id}</td>
                                     <td>
                                         <a href="#">{customer.firstName} {customer.lastName}</a>
