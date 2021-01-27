@@ -1,11 +1,25 @@
-import React from "react";
 
-const Navbar = props => {
+import React, { useContext } from "react";
+import AuthAPI from "../services/authAPI";
+import { NavLink } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
+import { toast } from "react-toastify";
+
+const Navbar = ({ history }) => {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    AuthAPI.logout();
+    setIsAuthenticated(false);
+    toast.info("Vous êtes désormais déconnecté");
+    history.push("/login");
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">
+      <NavLink className="navbar-brand" to="/">
         SReact
-      </a>
+      </NavLink>
       <button
         className="navbar-toggler"
         type="button"
@@ -21,32 +35,37 @@ const Navbar = props => {
       <div className="collapse navbar-collapse" id="navbarColor03">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <NavLink className="nav-link" to="/customers">
               Clients
-            </a>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <NavLink className="nav-link" to="/invoices">
               Factures
-            </a>
+            </NavLink>
           </li>
         </ul>
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <a href="#" className="nav-link">
-              Inscription
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" className="btn btn-success">
-              Connexion !
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" className="btn btn-danger">
-              Déconnexion
-            </a>
-          </li>
+          {(!isAuthenticated && (
+            <>
+              <li className="nav-item">
+                <NavLink to="/register" className="nav-link">
+                  Inscription
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/login" className="btn btn-success">
+                  Connexion !
+                </NavLink>
+              </li>
+            </>
+          )) || (
+            <li className="nav-item">
+              <button onClick={handleLogout} className="btn btn-danger">
+                Déconnexion
+              </button>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

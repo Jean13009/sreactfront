@@ -1,12 +1,14 @@
-
 import React from "react";
 
 const HomePage = props => {
-  return (
-    <div className="jumbotron">
-      <h1 className="display-3">Test page customers API exterieure</h1>
-    </div>
-  );
-};
-
-export default HomePage;
+    return (
+        <div className="jumbotron">
+        <p class="h1"> tech stack :</p>
+        <p class="h3">- Symfony 5</p>
+        <p class="h3">- API platform</p>
+        <p class="h3">- React</p>
+        </div>
+        );
+    };
+    
+    export default HomePage;
