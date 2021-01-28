@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 const LoginPage = ({ history }) => {
   const { setIsAuthenticated } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const [credentials, setCredentials] = useState({
     username: "test@test.com",
@@ -23,7 +24,7 @@ const LoginPage = ({ history }) => {
   // Gestion du submit
   const handleSubmit = async event => {
     event.preventDefault();
-
+    setLoading(true);
     try {
       await AuthAPI.authenticate(credentials);
       setError("");
@@ -62,9 +63,15 @@ const LoginPage = ({ history }) => {
         />
 
         <div className="form-group">
-          <button type="submit" className="btn btn-success">
+          {!loading &&<button type="submit" className="btn btn-success">
             Je me connecte
           </button>
+          }
+          {loading && <button className="btn btn-primary" type="button" disabled>
+            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Connexion
+            </button>
+          }
         </div>
       </form>
     </>
